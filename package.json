@@ -1,0 +1,35 @@
+{
+  "name": "google4Watson",
+  "description": "A sample of Google Home Integration",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Vincent Perrin",
+  "engines": {
+    "node": "~4.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "lodash": "4.x",
+    "express": "^4.13.4",
+    "cfenv": "^1.0.3",
+    "JSON": "^1.0.0",
+    "body-parser": "^1.15.0",
+    "qs": "6.4.0",
+    "node-geocoder": "^3.9.1",
+    "request": "^2.71.0",
+    "facebook-node-sdk": "0.2.0",
+    "textversionjs": "1.0.2",
+    "cookie-session": "1.2.0",
+    "vcap_services": "0.3.4",
+    "alexa-verifier": "1.0.0",
+    "watson-developer-cloud": "^2.42.0",
+    "redis": "^2.8.0",
+    "dotenv": "^4.0.0"
+  },
+  "devDependencies": {
+    "semistandard": "^9.1.0"
+  }
+}
