@@ -58,6 +58,14 @@ In order to test it you have three options:
 
 If you are in Testing Home, you have to invocate the Google Actions by using "Talk to **APP_NAME**" or "Parler avec **APP_NAME**.
 
+### Illustration of the Web Simulator
+
+![Web Simulator](https://user-images.githubusercontent.com/9534938/33787219-9945939c-dc6c-11e7-9fef-8ef464068a58.png)
+
+### Illustration of the Google Assistant on Mobile (iOS)
+
+![img_d4d247ea81fc-1](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
+
 ## License
 
 This sample code is licensed under Apache 2.0.
