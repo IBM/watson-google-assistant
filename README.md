@@ -22,6 +22,16 @@ Powered by the Google Assistant, with [Google Home](https://support.google.com/g
 
 Follow documentation in that [Github project](https://github.com/watson-developer-cloud/conversation-simple).
 
+* Create an .env file for credentials and connections details
+```
+WCS_Username=
+WCS_Password=
+workspace_id=
+redis_port=
+redis_url=
+redis_auth=  
+```
+
 ## Setup Google Actions Project
 
 1. Go to [Google Actions Console](https://console.actions.google.com)
