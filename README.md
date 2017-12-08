@@ -1,4 +1,4 @@
-# Watson-GoogleHome
+# Watson Conversation & Google Home
 A code allowing you to demo Watson Conversation with Google Home.
 
 ## Components of the solution
