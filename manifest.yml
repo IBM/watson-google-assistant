@@ -3,6 +3,6 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: googleVP
-  host: googleVP
+  name: YOUR_HOSTNAME
+  host: YOUR_HOSTNAME
   disk_quota: 1024M
