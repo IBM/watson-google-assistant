@@ -1,0 +1,32 @@
+{
+    "locale": "fr-FR",
+    "actions": [
+    {
+      "description": "Watson France",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "Watson"
+      },
+      "intent": {
+        "name": "actions.intent.MAIN",
+        "trigger": {
+          "queryPatterns": [
+            "Dis à Watson",
+            "Demande à Watson"
+          ]
+        }
+      }
+    }
+  ],
+  "conversations": {
+    "Watson": {
+      "name": "Watson",
+      "url": "https://googleVP.mybluemix.net/api/google4IBM",
+      "in_dialog_intents": [
+        {
+          "name": "actions.intent.CANCEL"
+        }
+      ]
+    }
+  }
+}
