@@ -1,8 +1,13 @@
+declared-services:
+  wga-assistant:
+    label: conversation
+    plan: free
+  wga-redis_
+    label: rediscloud
+    plan: 30mb
 applications:
-- path: .
-  memory: 256M
-  instances: 1
-  domain: mybluemix.net
-  name: YOUR_HOSTNAME
-  host: YOUR_HOSTNAME
-  disk_quota: 1024M
+- memory: 256M
+  random-route: false
+  services:
+  - wga-assistant
+  - wga-redis
