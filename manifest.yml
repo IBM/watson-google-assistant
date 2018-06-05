@@ -1,3 +1,4 @@
+---
 declared-services:
   wga-assistant:
     label: conversation
@@ -6,8 +7,13 @@ declared-services:
     label: rediscloud
     plan: 30mb
 applications:
-- memory: 256M
+- path: .
+  memory: 256M
+  instances: 1
+  name: watson-google-assistant
+  disk_quota: 256M
   random-route: false
+  timeout: 180
   services:
   - wga-assistant
   - wga-redis
