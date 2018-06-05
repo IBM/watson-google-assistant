@@ -2,7 +2,7 @@ declared-services:
   wga-assistant:
     label: conversation
     plan: free
-  wga-redis_
+  wga-redis:
     label: rediscloud
     plan: 30mb
 applications:
