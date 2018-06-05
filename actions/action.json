@@ -1,7 +1,8 @@
 {
+  "locale": "en",
   "actions": [
     {
-      "description": "Watson for Google",
+      "description": "Watson Assistant for Google Assistant",
       "name": "MAIN",
       "fulfillment": {
         "conversationName": "Watson"
@@ -10,6 +11,11 @@
         "name": "actions.intent.MAIN",
         "trigger": {
           "queryPatterns": [
+            "Talk to Watson",
+            "Tell Watson",
+            "Ask Watson",
+            "Hey Watson",
+            "OK Watson",
             "Say to Watson"
           ]
         }
@@ -19,7 +25,7 @@
   "conversations": {
     "Watson": {
       "name": "Watson",
-      "url": "https://googleVP.mybluemix.net/api/google4IBM",
+      "url": "<INSERT YOUR FULLFILLMENT URL HERE>",
       "in_dialog_intents": [
         {
           "name": "actions.intent.CANCEL"
