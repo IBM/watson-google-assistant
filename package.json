@@ -23,9 +23,8 @@
     "facebook-node-sdk": "0.2.0",
     "textversionjs": "1.0.2",
     "cookie-session": "1.2.0",
-    "vcap_services": "0.3.4",
-    "alexa-verifier": "1.0.0",
-    "watson-developer-cloud": "^2.42.0",
+    "vcap_services": "^0.3.4",
+    "watson-developer-cloud": "^3.4.5",
     "redis": "^2.8.0",
     "dotenv": "^4.0.0"
   },

@@ -1,6 +1,6 @@
 'use strict';
 
-const ConversationV1 = require('watson-developer-cloud/conversation/v1');
+const AssistantV1 = require('watson-developer-cloud/assistant/v1');
 const redis = require('redis');
 
 var express = require('express');
@@ -14,7 +14,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Using some globals for now
-let conversation;
+let assistant;
 let redisClient;
 let context;
 let Wresponse;
@@ -34,19 +34,20 @@ function errorResponse(reason) {
 
 function initClients() {
 	return new Promise(function(resolve, reject) {
-	// Connect a client to Watson Conversation
-	conversation = new ConversationV1({
-		password: process.env.WCS_Password,
-        username: process.env.WCS_Username,
-		version_date: '2016-09-20'
-	});
-	console.log('Connected to Watson Conversation');
+	  // Connect a client to Watson Assistant
+	  assistant = new AssistantV1({ version: '2018-02-16' });
+	  console.log('Connected to Watson Assistant');
   
-	  // Connect a client to Redis 
-	  redisClient = redis.createClient(process.env.redis_port, process.env.redis_url);
-	  redisClient.auth(process.env.redis_auth, function (err) {
-		if (err) throw err;
-	});
+		// Connect a client to Redis 
+		if (process.env.VCAP_SERVICES) {
+			var env = JSON.parse(process.env.VCAP_SERVICES);
+			var credentials = env["rediscloud"][0].credentials;
+		}
+		redisClient = redis.createClient(credentials.port, credentials.hostname, {no_ready_check: true});
+	  redisClient.auth(credentials.password, function (err) {
+			if (err) throw err;
+	  });
+
 	redisClient.on('connect', function() {
 		console.log('Connected to Redis');
 	});
@@ -54,7 +55,12 @@ function initClients() {
   });
   }
 
-function conversationMessage(request, workspaceId) {
+function assistantMessage(request, workspaceId) {
+	if (!workspaceId) {
+			const msg = 'Error talking to Watson Assistant. Workspace ID is not set.';
+			console.error(msg);
+			return Promise.reject(msg);
+	}
 	return new Promise(function(resolve, reject) {
 	  const input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : 'start skill';
 		var test = {
@@ -64,7 +70,7 @@ function conversationMessage(request, workspaceId) {
 			//context: {}
 		  };
 	  console.log("Input" + JSON.stringify(test,null,2));
-	  conversation.message(
+	  assistant.message(
 		{
 		  input: { text: input },
 		  workspace_id: workspaceId,
@@ -73,10 +79,10 @@ function conversationMessage(request, workspaceId) {
 		function(err, watsonResponse) {
 		  if (err) {
 			console.error(err);
-			reject('Error talking to Watson.');
+			reject('Error talking to Watson Assistant.');
 		  } else {
 			console.log(watsonResponse);
-			context = watsonResponse.context; // Update global context			
+			context = watsonResponse.context; // Update global context
 			resolve(watsonResponse);
 		  }
 		}
@@ -163,7 +169,7 @@ app.post('/api/google4IBM', function(args, res) {
 	  const sessionId = args.body.conversation.conversationId;
 	  initClients()
 	  .then(() => getSessionContext(sessionId))
-	  .then(() => conversationMessage(request, process.env.workspace_id))
+	  .then(() => assistantMessage(request, process.env.WORKSPACE_ID))
 	  .then(actionResponse => sendResponse(actionResponse, resolve))
 	  .then(data => {
 		res.setHeader('Content-Type', 'application/json');

@@ -129,11 +129,8 @@ Edit the `.env` file with the necessary settings.
 
 #### `env.sample:`
 
-TODO:
+TODO: Set these in RunTime  (or .env?)
 ```
-WCS_Username=
-WCS_Password=
-workspace_id=
 redis_port=
 redis_url=
 redis_auth=  
@@ -143,23 +140,12 @@ redis_auth=
 # Rename this file to .env before starting the app.
 
 # Watson conversation
-CONVERSATION_USERNAME=<add_conversation_username>
-CONVERSATION_PASSWORD=<add_conversation_password>
-WORKSPACE_ID=<add_conversation_workspace>
+ASSISTANT_USERNAME=<add_assistant_username>
+ASSISTANT_PASSWORD=<add_assistant_password>
+WORKSPACE_ID=<add_assistant_workspace>
 
-# Watson Discovery
-DISCOVERY_USERNAME=<add_discovery_username>
-DISCOVERY_PASSWORD=<add_discovery_password>
-DISCOVERY_ENVIRONMENT_ID=<add_discovery_environment>
-DISCOVERY_COLLECTION_ID=<add_discovery_collection>
-
-# Watson Natural Language Understanding
-NATURAL_LANGUAGE_UNDERSTANDING_USERNAME=<add_nlu_username>
-NATURAL_LANGUAGE_UNDERSTANDING_PASSWORD=<add_nlu_password>
-
-# Watson Tone Analyzer
-TONE_ANALYZER_USERNAME=<add_tone_analyzer_username>
-TONE_ANALYZER_PASSWORD=<add_tone_analyzer_password>
+# Redis
+TODO=
 
 # Run locally on a non-default port (default is 3000)
 # PORT=3000
@@ -242,6 +228,7 @@ I have already create 3 actions for English, French (France) & French (Canada).
   * description
   * queryPatterns
   * name & url - depends on your Bluemix deployment 
+  * **url needs "https://" prefix
 6. Launch these commands
   * If it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
 
