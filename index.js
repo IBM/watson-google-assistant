@@ -20,7 +20,6 @@ const AssistantV1 = require('watson-developer-cloud/assistant/v1');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
-const https = require('https');
 const jwt = require('jsonwebtoken');
 const secret = 'notsecret';
 
@@ -31,7 +30,7 @@ require('dotenv').config();
 
 const DEFAULT_NAME = 'rent-a-car';
 const WatsonAssistantSetup = require('./lib/watson-assistant-setup');
-let setupError = "";
+let setupError = '';
 
 /**
  * Handle setup errors by logging and appending to the global error text.
@@ -66,11 +65,17 @@ assistantSetup.setupAssistantWorkspace(assistantSetupParams, (err, data) => {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-
 let context;
 let Wresponse;
 let expectUserResponse;
 
+/**
+ * Forword input text and stored context to Watson Assistant and
+ * return the response.
+ *
+ * @param {*} request - incoming request
+ * @param {*} workspaceId - Watson Assistant workspace ID
+ */
 function assistantMessage(request, workspaceId) {
   if (!workspaceId) {
     const msg = 'Error talking to Watson Assistant. Workspace ID is not set.';
@@ -78,7 +83,7 @@ function assistantMessage(request, workspaceId) {
     return Promise.reject(msg);
   }
   return new Promise(function(resolve, reject) {
-    console.log("REQUEST:");
+    console.log('REQUEST:');
     console.log(request);
     const input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : 'hello';
 
@@ -86,8 +91,7 @@ function assistantMessage(request, workspaceId) {
     if (request.conversation && request.conversation.conversationToken) {
       context = jwt.verify(request.conversation.conversationToken, secret);
       console.log(context);
-    }
-    else {
+    } else {
       context = {};
     }
 
@@ -112,26 +116,31 @@ function assistantMessage(request, workspaceId) {
   });
 }
 
+/**
+ * Prepare/resolve the response for Google Assistant.
+ *
+ * @param {*} response - Response from Watson Assistant
+ * @param {*} resolve - Promise resolve to complete
+ */
 function sendResponse(response, resolve) {
+  // store context in conversationToken
+  const conversationToken = jwt.sign(context, secret);
 
-    // store context in conversationToken
-    const conversationToken = jwt.sign(context, secret);
-  
-    // Combine the output messages into one message.
-    const output = response.output.text.join(' ');
-    const richResponse = {
-            items: [
-              {
-                simpleResponse: {
-                  textToSpeech: output
-                }
-              }
-            ],
-            suggestions: []
-    };
-    var resp = {
+  // Combine the output messages into one message.
+  const output = response.output.text.join(' ');
+  const richResponse = {
+    items: [
+      {
+        simpleResponse: {
+          textToSpeech: output
+        }
+      }
+    ],
+    suggestions: []
+  };
+  const resp = {
     conversationToken: conversationToken,
-    expectUserResponse: expectUserResponse,
+    expectUserResponse: expectUserResponse
   };
 
   if (expectUserResponse) {
@@ -146,14 +155,14 @@ function sendResponse(response, resolve) {
           }
         ]
       }
-    ]
+    ];
   } else {
-    let s = output.substring(0,59);  // Has to be < 60 chars.  :(
-    resp.finalResponse = {speechResponse: {textToSpeech: s}}
+    const s = output.substring(0, 59); // Has to be < 60 chars.  :(
+    resp.finalResponse = { speechResponse: { textToSpeech: s } };
   }
-  
+
   console.log(resp);
-  Wresponse =  resp;
+  Wresponse = resp;
   // Resolve the main promise now that we have our response
   resolve(resp);
 }
@@ -161,22 +170,21 @@ function sendResponse(response, resolve) {
 app.post('/api/google4IBM', function(args, res) {
   return new Promise(function(resolve, reject) {
     const request = args.body;
-    console.log("Google Home is calling");
-    console.log(JSON.stringify(request,null,2));
-    const sessionId = args.body.conversation.conversationId;
+    console.log('Google Home is calling');
+    console.log(JSON.stringify(request, null, 2));
     // Expect response must be false for action.intent.CANCEL
-    expectUserResponse = !(request.inputs[0] && request.inputs[0].intent === "actions.intent.CANCEL");
+    expectUserResponse = !(request.inputs[0] && request.inputs[0].intent === 'actions.intent.CANCEL');
     assistantMessage(request, workspaceID)
-    .then(actionResponse => sendResponse(actionResponse, resolve))
-    .then(data => {
-      res.setHeader('Content-Type', 'application/json');
-      res.append("Google-Assistant-API-Version", "v2");
-      res.json(Wresponse);
-    })
-    .catch(function (err) {
-      console.error('Erreur !');
-      console.dir(err);
-    });
+      .then(actionResponse => sendResponse(actionResponse, resolve))
+      .then(data => {
+        res.setHeader('Content-Type', 'application/json');
+        res.append('Google-Assistant-API-Version', 'v2');
+        res.json(Wresponse);
+      })
+      .catch(function(err) {
+        console.error('Erreur !');
+        console.dir(err);
+      });
   });
 });
 

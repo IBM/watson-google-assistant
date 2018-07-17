@@ -6,12 +6,13 @@
   "license": "Apache Version 2.0",
   "author": "Vincent Perrin",
   "engines": {
-    "node": "~4.2"
+    "node": ">=6.0.0"
   },
   "scripts": {
     "start": "node index.js",
     "test": "npm run eslint",
-    "eslint": "eslint *.js lib"
+    "eslint": "eslint *.js lib",
+    "eslint-fix": "eslint --fix *.js lib"
   },
   "dependencies": {
     "JSON": "^1.0.0",
