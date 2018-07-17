@@ -29,9 +29,8 @@ const port = process.env.PORT || 8080;
 
 require('dotenv').config();
 
-// TODO: Rename Conversation
 const DEFAULT_NAME = 'rent-a-car';
-const WatsonConversationSetup = require('./lib/watson-conversation-setup');
+const WatsonAssistantSetup = require('./lib/watson-assistant-setup');
 let setupError = "";
 
 /**
@@ -52,10 +51,10 @@ function handleSetupError(reason) {
 const assistant = new AssistantV1({ version: '2018-02-16' });
 console.log('Connected to Watson Assistant');
 let workspaceID; // workspaceID will be set when the workspace is created or validated.
-const conversationSetup = new WatsonConversationSetup(assistant);
+const assistantSetup = new WatsonAssistantSetup(assistant);
 const workspaceJson = JSON.parse(fs.readFileSync('data/assistant/workspaces/rent_a_car.json'));
-const conversationSetupParams = { default_name: DEFAULT_NAME, workspace_json: workspaceJson };
-conversationSetup.setupConversationWorkspace(conversationSetupParams, (err, data) => {
+const assistantSetupParams = { default_name: DEFAULT_NAME, workspace_json: workspaceJson };
+assistantSetup.setupAssistantWorkspace(assistantSetupParams, (err, data) => {
   if (err) {
     handleSetupError(err);
   } else {
