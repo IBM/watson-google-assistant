@@ -11,12 +11,8 @@
         "name": "actions.intent.MAIN",
         "trigger": {
           "queryPatterns": [
-            "Talk to Watson",
-            "Tell Watson",
-            "Ask Watson",
-            "Hey Watson",
-            "OK Watson",
-            "Say to Watson"
+            "Rent a car",
+            "Get me some wheels"
           ]
         }
       }
@@ -25,7 +21,8 @@
   "conversations": {
     "Watson": {
       "name": "Watson",
-      "url": "<INSERT YOUR FULLFILLMENT URL HERE>",
+      "url": "https://watson-google-assistant-20180707012345678.mybluemix.net/api/google4IBM",
+      "fulfillmentApiVersion": 2,
       "in_dialog_intents": [
         {
           "name": "actions.intent.CANCEL"

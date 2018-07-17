@@ -1,195 +1,186 @@
+/**
+ * Copyright 2017 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License'); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 'use strict';
 
 const AssistantV1 = require('watson-developer-cloud/assistant/v1');
-const redis = require('redis');
+const bodyParser = require('body-parser');
+const express = require('express');
+const fs = require('fs');
+const https = require('https');
+const jwt = require('jsonwebtoken');
+const secret = 'notsecret';
 
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 8080;
-var bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 8080;
 
 require('dotenv').config();
+
+// TODO: Rename Conversation
+const DEFAULT_NAME = 'rent-a-car';
+const WatsonConversationSetup = require('./lib/watson-conversation-setup');
+let setupError = "";
+
+/**
+ * Handle setup errors by logging and appending to the global error text.
+ * @param {String} reason - The error message for the setup error.
+ */
+function handleSetupError(reason) {
+  setupError += ' ' + reason;
+  console.error('The app failed to initialize properly. Setup and restart needed.' + setupError);
+  // We could allow our chatbot to run. It would just report the above error.
+  // Or we can add the following 2 lines to abort on a setup error allowing Bluemix to restart it.
+  console.error('\nAborting due to setup error!');
+  process.exit(1);
+}
+
+// Connect a client to Watson Assistant
+// The SDK gets credentials from the environment.
+const assistant = new AssistantV1({ version: '2018-02-16' });
+console.log('Connected to Watson Assistant');
+let workspaceID; // workspaceID will be set when the workspace is created or validated.
+const conversationSetup = new WatsonConversationSetup(assistant);
+const workspaceJson = JSON.parse(fs.readFileSync('data/assistant/workspaces/rent_a_car.json'));
+const conversationSetupParams = { default_name: DEFAULT_NAME, workspace_json: workspaceJson };
+conversationSetup.setupConversationWorkspace(conversationSetupParams, (err, data) => {
+  if (err) {
+    handleSetupError(err);
+  } else {
+    console.log('Watson Assistant is ready!');
+    workspaceID = data;
+  }
+});
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// Using some globals for now
-let assistant;
-let redisClient;
+
 let context;
 let Wresponse;
-
-function errorResponse(reason) {
-	return {
-	  version: '1.0',
-	  response: {
-		shouldEndSession: true,
-		outputSpeech: {
-		  type: 'PlainText',
-		  text: reason || 'An unexpected error occurred. Please try again later.'
-		}
-	  }
-	};
-  }
-
-function initClients() {
-	return new Promise(function(resolve, reject) {
-	  // Connect a client to Watson Assistant
-	  assistant = new AssistantV1({ version: '2018-02-16' });
-	  console.log('Connected to Watson Assistant');
-  
-		// Connect a client to Redis 
-		if (process.env.VCAP_SERVICES) {
-			var env = JSON.parse(process.env.VCAP_SERVICES);
-			var credentials = env["rediscloud"][0].credentials;
-		}
-		redisClient = redis.createClient(credentials.port, credentials.hostname, {no_ready_check: true});
-	  redisClient.auth(credentials.password, function (err) {
-			if (err) throw err;
-	  });
-
-	redisClient.on('connect', function() {
-		console.log('Connected to Redis');
-	});
-	resolve("Done");
-  });
-  }
+let expectUserResponse;
 
 function assistantMessage(request, workspaceId) {
-	if (!workspaceId) {
-			const msg = 'Error talking to Watson Assistant. Workspace ID is not set.';
-			console.error(msg);
-			return Promise.reject(msg);
-	}
-	return new Promise(function(resolve, reject) {
-	  const input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : 'start skill';
-		var test = {
-			input: { text: input },
-			workspace_id: workspaceId,
-			context: context
-			//context: {}
-		  };
-	  console.log("Input" + JSON.stringify(test,null,2));
-	  assistant.message(
-		{
-		  input: { text: input },
-		  workspace_id: workspaceId,
-		  context: context
-		},
-		function(err, watsonResponse) {
-		  if (err) {
-			console.error(err);
-			reject('Error talking to Watson Assistant.');
-		  } else {
-			console.log(watsonResponse);
-			context = watsonResponse.context; // Update global context
-			resolve(watsonResponse);
-		  }
-		}
-	  );
-	});
+  if (!workspaceId) {
+    const msg = 'Error talking to Watson Assistant. Workspace ID is not set.';
+    console.error(msg);
+    return Promise.reject(msg);
   }
+  return new Promise(function(resolve, reject) {
+    console.log("REQUEST:");
+    console.log(request);
+    const input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : 'hello';
 
-function getSessionContext(sessionId) {
-	console.log('sessionId: ' + sessionId); 
-	return new Promise(function(resolve, reject) {
-	  redisClient.get(sessionId, function(err, value) {
-		if (err) {
-		  console.error(err);
-		  reject('Error getting context from Redis.');
-		}
-		// set global context
-		context = value ? JSON.parse(value) : {};
-		console.log('---------');
-		console.log('Context Recupéré:');
-		console.log(context);
-		console.log('---------');
-		resolve();
-	  });
-	});
-  }
-  
-  function saveSessionContext(sessionId) {
-		console.log('---------');
-		console.log('Begin saveSessionContext ' + sessionId);
-  
-	// Save the context in Redis. Can do this after resolve(response).
-	if (context) {
-	  const newContextString = JSON.stringify(context);
-	  // Saved context will expire in 600 secs.
-	  redisClient.set(sessionId, newContextString, 'EX', 600);
-	  console.log('Saved context in Redis');
-	  console.log(sessionId);
-		console.log(newContextString);
-		console.log('---------');
-	}
-  }
+    // Use conversationToken to track Watson Assistant context
+    if (request.conversation && request.conversation.conversationToken) {
+      context = jwt.verify(request.conversation.conversationToken, secret);
+      console.log(context);
+    }
+    else {
+      context = {};
+    }
+
+    // Forward input text to Watson Assistant
+    assistant.message(
+      {
+        input: { text: input },
+        workspace_id: workspaceId,
+        context: context
+      },
+      function(err, watsonResponse) {
+        if (err) {
+          console.error(err);
+          reject('Error talking to Watson Assistant.');
+        } else {
+          console.log(watsonResponse);
+          context = watsonResponse.context; // Update global context
+          resolve(watsonResponse);
+        }
+      }
+    );
+  });
+}
 
 function sendResponse(response, resolve) {
-	
-	  // Combine the output messages into one message.
-	  const output = response.output.text.join(' ');
-	  var resp = {
-		conversationToken: null,
-		expectUserResponse: true,
-		expectedInputs: [
-			{
-				inputPrompt: {
-					richInitialPrompt: {
-						items: [
-							{
-								simpleResponse: {
-									textToSpeech: output,
-									displayText: output
-								}
-							}
-						],
-						suggestions: []
-					}
-				},
-				possibleIntents: [
-					{
-						intent: 'actions.intent.TEXT'
-					}
-				]
-			}
-		]
-	};
-	
-	Wresponse =  resp;
-	// Resolve the main promise now that we have our response
-	resolve(resp);
-	}
+
+    // store context in conversationToken
+    const conversationToken = jwt.sign(context, secret);
+  
+    // Combine the output messages into one message.
+    const output = response.output.text.join(' ');
+    const richResponse = {
+            items: [
+              {
+                simpleResponse: {
+                  textToSpeech: output
+                }
+              }
+            ],
+            suggestions: []
+    };
+    var resp = {
+    conversationToken: conversationToken,
+    expectUserResponse: expectUserResponse,
+  };
+
+  if (expectUserResponse) {
+    resp.expectedInputs = [
+      {
+        inputPrompt: {
+          richInitialPrompt: richResponse
+        },
+        possibleIntents: [
+          {
+            intent: 'actions.intent.TEXT'
+          }
+        ]
+      }
+    ]
+  } else {
+    let s = output.substring(0,59);  // Has to be < 60 chars.  :(
+    resp.finalResponse = {speechResponse: {textToSpeech: s}}
+  }
+  
+  console.log(resp);
+  Wresponse =  resp;
+  // Resolve the main promise now that we have our response
+  resolve(resp);
+}
 
 app.post('/api/google4IBM', function(args, res) {
-	return new Promise(function(resolve, reject) {
-	  const request = args.body;
-	  console.log("Google Home is calling");
-	  console.log(JSON.stringify(request,null,2));
-	  const sessionId = args.body.conversation.conversationId;
-	  initClients()
-	  .then(() => getSessionContext(sessionId))
-	  .then(() => assistantMessage(request, process.env.WORKSPACE_ID))
-	  .then(actionResponse => sendResponse(actionResponse, resolve))
-	  .then(data => {
-		res.setHeader('Content-Type', 'application/json');
-		res.append("Google-Assistant-API-Version", "v2");
-		res.json(Wresponse);
-	})
-	.then(() => saveSessionContext(sessionId))    
-	.catch(function (err) {
-		console.error('Erreur !');
-		console.dir(err);
-	});
-	});
+  return new Promise(function(resolve, reject) {
+    const request = args.body;
+    console.log("Google Home is calling");
+    console.log(JSON.stringify(request,null,2));
+    const sessionId = args.body.conversation.conversationId;
+    // Expect response must be false for action.intent.CANCEL
+    expectUserResponse = !(request.inputs[0] && request.inputs[0].intent === "actions.intent.CANCEL");
+    assistantMessage(request, workspaceID)
+    .then(actionResponse => sendResponse(actionResponse, resolve))
+    .then(data => {
+      res.setHeader('Content-Type', 'application/json');
+      res.append("Google-Assistant-API-Version", "v2");
+      res.json(Wresponse);
+    })
+    .catch(function (err) {
+      console.error('Erreur !');
+      console.dir(err);
+    });
   });
+});
 
-/*
-	res.setHeader('Content-Type', 'application/json')
-	res.append("Google-Assistant-API-Version", "v2")
-*/
-
-
-// start the server
+// start the http server
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);
