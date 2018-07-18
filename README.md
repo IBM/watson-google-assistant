@@ -46,7 +46,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 1. Press the above `Deploy to IBM Cloud` button and then click on `Deploy`.
 
-2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed. Once deployed, the app can be viewed by clicking `View app`.
+2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed.
 
 3. To see the app and service created and configured for this Code Pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. The following service is created and easily identified by the `wga-` prefix:
     * wga-assistant
@@ -75,10 +75,16 @@ When the reader has completed this Code Pattern, they will understand how to:
    * Next to the `Overview` menu item, click on the gear icon and then `Project settings`.
    * Save the `Project ID` to use later.
 
+1. Set the invocation name
+
+   * Use the left sidebar menu to select `SETUP` > `Invocation`.
+   * Enter a display name. Users will say or type this name to explicitly invoke your action.
+   * Hit `SAVE`.
+
 1. Install the `gactions` CLI
    * Download the `gactions` CLI from [here](https://developers.google.com/actions/tools/gactions-cli).
    * `chmod` the `gactions` file to make it executable.
-   * Copy the `gactions` file into your path or your local repo's `actions` directory.
+   * Copy the `gactions` file into your local repo's `actions` directory.
      ```
      # For example, depending on your download and repo directories...
 
@@ -86,7 +92,7 @@ When the reader has completed this Code Pattern, they will understand how to:
      cp ~/Downloads/gactions ~/watson-google-assistant/actions/
      ```
 
-1. Edit the actions.json
+1. Edit the `actions/actions.json` file in your local repo.
    * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits.
      > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.mybluemix.net/ 
 
@@ -99,7 +105,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
 
-   * Run the `gactions` command to update your action and prepare it for testing:
+   * Run the `gactions` command to update your action and prepare it for testing. Use the project ID you saved earlier.
 
      ```
      cd ~/watson-google-assistant/actions/
@@ -112,9 +118,8 @@ When the reader has completed this Code Pattern, they will understand how to:
 1. Test it in the simulator
 
    * Go back to your Actions on Google Developer Console
-   * Use the left sidebar menu to select `TEST` > `Simulator`
-   * Click on `START TESTING`
-   * Type input or click on the microphone icon to use voice input
+   * Use the left sidebar menu to select `TEST` > `Simulator` and start testing
+   * Type in the `Input` box or click on the microphone icon to use voice input
    * Say "Talk to my test app" or "Talk to \<your app name\>" to initiate the converation
 
 1. Try it with your phone, your Google Home, or other device
