@@ -11,7 +11,6 @@ When the reader has completed this Code Pattern, they will understand how to:
 * Create a Google Assistant Action
 * Create a Node.js Express web application
 * Interact with Watson Assistant
-* Tie it all together
 
 ![](doc/source/images/architecture.png)
 
@@ -23,7 +22,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 5. Google Assistant replies to the user.
 
 ## Included components
-* [Google Home](https://support.google.com/googlehome/answer/7029281?hl=en): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome/answer/7029281?hl=en) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
+* [Google Home](https://support.google.com/googlehome): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome/answer/7029281?hl=en) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
 * [Watson Assistant](https://www.ibm.com/watson/developercloud/conversation.html): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
 
 ## Featured technologies
@@ -150,7 +149,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 ![img_d4d247ea81fc-1](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
 
 # Links
-* [Demo on Youtube](https://www.youtube.com/watch?v=TODO)
+<!-- * [Demo on Youtube](https://www.youtube.com/watch?v=TODO) -->
 * [Create an Alexa skill with Watson Assistant](https://developer.ibm.com/code/patterns/create-an-alexa-skill-with-serverless-and-a-conversation/)
 * [Watson Node.js SDK](https://github.com/watson-developer-cloud/node-sdk)
 
