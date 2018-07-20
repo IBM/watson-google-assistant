@@ -1,8 +1,16 @@
+---
+declared-services:
+  wga-assistant:
+    label: conversation
+    plan: free
 applications:
 - path: .
+  buildpack: sdk-for-nodejs
   memory: 256M
   instances: 1
-  domain: mybluemix.net
-  name: YOUR_HOSTNAME
-  host: YOUR_HOSTNAME
-  disk_quota: 1024M
+  name: watson-google-assistant
+  disk_quota: 256M
+  random-route: false
+  timeout: 180
+  services:
+  - wga-assistant
