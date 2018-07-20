@@ -92,11 +92,11 @@ function assistantMessage(request, workspaceId) {
     if (request.conversation && request.conversation.type === 'NEW') {
       // If NEW conversation, reset context and trigger start over intent
       input = START_OVER;
-      context = {}
+      context = {};
     } else if (request.conversation && request.conversation.conversationToken) {
       // Use conversationToken to track Watson Assistant context
       context = jwt.verify(request.conversation.conversationToken, secret);
-      console.log("CONTEXT");
+      console.log('CONTEXT');
       console.log(context);
     }
 
