@@ -119,7 +119,7 @@ When the reader has completed this Code Pattern, they will understand how to:
    * Go back to your Actions on Google Developer Console
    * Use the left sidebar menu to select `TEST` > `Simulator` and start testing
    * Type in the `Input` box or click on the microphone icon to use voice input
-   * Say "Talk to my test app" or "Talk to \<your app name\>" to initiate the converation
+   * Say "Talk to my test app" or "Talk to \<your app name\>" to initiate the conversation
 
 1. Try it with your phone, your Google Home, or other device
 
