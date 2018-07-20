@@ -68,6 +68,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 let context;
 let Wresponse;
 let expectUserResponse;
+const START_OVER = 'start over';
 
 /**
  * Forword input text and stored context to Watson Assistant and
@@ -85,14 +86,18 @@ function assistantMessage(request, workspaceId) {
   return new Promise(function(resolve, reject) {
     console.log('REQUEST:');
     console.log(request);
-    const input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : 'hello';
+    // Input from Google Assistant
+    let input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : START_OVER;
 
-    // Use conversationToken to track Watson Assistant context
-    if (request.conversation && request.conversation.conversationToken) {
-      context = jwt.verify(request.conversation.conversationToken, secret);
-      console.log(context);
-    } else {
+    if (request.conversation && request.conversation.type === 'NEW') {
+      // If NEW conversation, reset context and trigger start over intent
+      input = START_OVER;
       context = {};
+    } else if (request.conversation && request.conversation.conversationToken) {
+      // Use conversationToken to track Watson Assistant context
+      context = jwt.verify(request.conversation.conversationToken, secret);
+      console.log('CONTEXT');
+      console.log(context);
     }
 
     // Forward input text to Watson Assistant
@@ -167,7 +172,7 @@ function sendResponse(response, resolve) {
   resolve(resp);
 }
 
-app.post('/api/google4IBM', function(args, res) {
+app.post('/', function(args, res) {
   return new Promise(function(resolve, reject) {
     const request = args.body;
     console.log('Google Home is calling');
