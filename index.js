@@ -39,8 +39,6 @@ let setupError = '';
 function handleSetupError(reason) {
   setupError += ' ' + reason;
   console.error('The app failed to initialize properly. Setup and restart needed.' + setupError);
-  // We could allow our chatbot to run. It would just report the above error.
-  // Or we can add the following 2 lines to abort on a setup error allowing Bluemix to restart it.
   console.error('\nAborting due to setup error!');
   process.exit(1);
 }
@@ -65,10 +63,9 @@ assistantSetup.setupAssistantWorkspace(assistantSetupParams, (err, data) => {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-let context;
-let Wresponse;
-let expectUserResponse;
 const START_OVER = 'start over';
+const CANCEL = 'goodbye';
+let expectUserResponse;
 
 /**
  * Forword input text and stored context to Watson Assistant and
@@ -84,19 +81,30 @@ function assistantMessage(request, workspaceId) {
     return Promise.reject(msg);
   }
   return new Promise(function(resolve, reject) {
-    console.log('REQUEST:');
+    console.log('Incoming request:');
     console.log(request);
     // Input from Google Assistant
-    let input = request.inputs[0] ? request.inputs[0].rawInputs[0].query : START_OVER;
+    let input = request.inputs[0].rawInputs[0].query;
+    let intent = request.inputs[0].intent;
+    let conversationType = request.conversation.type;
+    console.log('Conversation type:' + conversationType);
+    console.log('Google intent:' + intent);
+    console.log('Input text:' + input);
 
-    if (request.conversation && request.conversation.type === 'NEW') {
-      // If NEW conversation, reset context and trigger start over intent
+    let context = {};  // Clear context and conditionally set it with stashed context
+    expectUserResponse = true;
+    if (intent === 'actions.intent.CANCEL') {
+      // expectUserResponse must be false when action.intent.CANCEL
+      expectUserResponse = false;
+      input = CANCEL;  // Say goodbye
+    } else if (conversationType === 'NEW') {
+      // Input might be "Talk to <name>". Ignore that and trigger a fresh start.
       input = START_OVER;
-      context = {};
     } else if (request.conversation && request.conversation.conversationToken) {
-      // Use conversationToken to track Watson Assistant context
+      // Use conversationToken to continue the conversation.
+      // Decode/verify the incoming conversationToken and use it as context.
       context = jwt.verify(request.conversation.conversationToken, secret);
-      console.log('CONTEXT');
+      console.log('Incoming context: ');
       console.log(context);
     }
 
@@ -122,17 +130,19 @@ function assistantMessage(request, workspaceId) {
 }
 
 /**
- * Prepare/resolve the response for Google Assistant.
+ * Format the response for Google Assistant.
  *
  * @param {*} response - Response from Watson Assistant
- * @param {*} resolve - Promise resolve to complete
  */
-function sendResponse(response, resolve) {
+function formatResponse(response) {
+
   // store context in conversationToken
-  const conversationToken = jwt.sign(context, secret);
+  const conversationToken = jwt.sign(response.context, secret);
 
   // Combine the output messages into one message.
   const output = response.output.text.join(' ');
+
+  // Build the response JSON
   const richResponse = {
     items: [
       {
@@ -166,33 +176,33 @@ function sendResponse(response, resolve) {
     resp.finalResponse = { speechResponse: { textToSpeech: s } };
   }
 
+  console.log("Response:");
   console.log(resp);
-  Wresponse = resp;
-  // Resolve the main promise now that we have our response
-  resolve(resp);
+  return(resp);
 }
 
+// GET: Just show something on the default app URL page
+app.get('/', (req, res) => res.send('Watson for Google Assistant app is running.'))
+
+// POST: Requests from Google Assistant
 app.post('/', function(args, res) {
   return new Promise(function(resolve, reject) {
     const request = args.body;
-    console.log('Google Home is calling');
+    console.log('Google Assistant is calling');
     console.log(JSON.stringify(request, null, 2));
-    // Expect response must be false for action.intent.CANCEL
-    expectUserResponse = !(request.inputs[0] && request.inputs[0].intent === 'actions.intent.CANCEL');
     assistantMessage(request, workspaceID)
-      .then(actionResponse => sendResponse(actionResponse, resolve))
-      .then(data => {
+      .then(resp => {
         res.setHeader('Content-Type', 'application/json');
         res.append('Google-Assistant-API-Version', 'v2');
-        res.json(Wresponse);
+        res.json(formatResponse(resp));
       })
       .catch(function(err) {
-        console.error('Erreur !');
+        console.error('Error!');
         console.dir(err);
       });
   });
 });
 
-// start the http server
+// Start the HTTP server
 app.listen(port);
-console.log('Server started! At http://localhost:' + port);
+console.log('HTTP server started on port ' + port);
