@@ -22,7 +22,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 5. Google Assistant replies to the user.
 
 ## Included components
-* [Google Home](https://support.google.com/googlehome): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome/answer/7029281?hl=en) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
+* [Google Home](https://support.google.com/googlehome): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
 * [Watson Assistant](https://www.ibm.com/watson/developercloud/conversation.html): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
 
 ## Featured technologies
