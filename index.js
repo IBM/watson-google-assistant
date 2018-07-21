@@ -85,18 +85,18 @@ function assistantMessage(request, workspaceId) {
     console.log(request);
     // Input from Google Assistant
     let input = request.inputs[0].rawInputs[0].query;
-    let intent = request.inputs[0].intent;
-    let conversationType = request.conversation.type;
+    const intent = request.inputs[0].intent;
+    const conversationType = request.conversation.type;
     console.log('Conversation type:' + conversationType);
     console.log('Google intent:' + intent);
     console.log('Input text:' + input);
 
-    let context = {};  // Clear context and conditionally set it with stashed context
+    let context = {}; // Clear context and conditionally set it with stashed context
     expectUserResponse = true;
     if (intent === 'actions.intent.CANCEL') {
       // expectUserResponse must be false when action.intent.CANCEL
       expectUserResponse = false;
-      input = CANCEL;  // Say goodbye
+      input = CANCEL; // Say goodbye
     } else if (conversationType === 'NEW') {
       // Input might be "Talk to <name>". Ignore that and trigger a fresh start.
       input = START_OVER;
@@ -135,7 +135,6 @@ function assistantMessage(request, workspaceId) {
  * @param {*} response - Response from Watson Assistant
  */
 function formatResponse(response) {
-
   // store context in conversationToken
   const conversationToken = jwt.sign(response.context, secret);
 
@@ -176,13 +175,13 @@ function formatResponse(response) {
     resp.finalResponse = { speechResponse: { textToSpeech: s } };
   }
 
-  console.log("Response:");
+  console.log('Response:');
   console.log(resp);
-  return(resp);
+  return resp;
 }
 
 // GET: Just show something on the default app URL page
-app.get('/', (req, res) => res.send('Watson for Google Assistant app is running.'))
+app.get('/', (req, res) => res.send('Watson for Google Assistant app is running.'));
 
 // POST: Requests from Google Assistant
 app.post('/', function(args, res) {
