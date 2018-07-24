@@ -52,14 +52,6 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Setup Google Actions
 
-1. Clone the repo
-
-   Clone the `watson-google-assistant` repo locally. In a terminal, run:
-
-   ```
-   git clone https://github.com/IBM/watson-google-assistant
-   ```
-
 1. Go to [Actions on Google Developer Console](https://console.actions.google.com)
 
 1. Create your project
@@ -79,6 +71,14 @@ When the reader has completed this Code Pattern, they will understand how to:
    * Use the left sidebar menu to select `SETUP` > `Invocation`.
    * Enter a display name. Users will say or type this name to explicitly invoke your action.
    * Hit `SAVE`.
+
+1. Clone the repo
+
+   Clone the `watson-google-assistant` repo locally. In a terminal, run:
+
+   ```
+   git clone https://github.com/IBM/watson-google-assistant
+   ```
 
 1. Install the `gactions` CLI
    * Download the `gactions` CLI from [here](https://developers.google.com/actions/tools/gactions-cli).
