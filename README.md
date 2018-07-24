@@ -91,7 +91,7 @@ When the reader has completed this Code Pattern, they will understand how to:
      cp ~/Downloads/gactions ~/watson-google-assistant/actions/
      ```
 
-1. Edit the `actions/actions.json` file in your local repo.
+1. Edit the `actions/action.json` file in your local repo.
    * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits.
      > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.mybluemix.net/ 
 
