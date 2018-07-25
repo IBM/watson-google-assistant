@@ -1,6 +1,4 @@
-<!--
 [![Build Status](https://travis-ci.org/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.org/IBM/watson-google-assistant)
--->
 
 # Create an Action for Google Assistant using Watson Assistant
 
@@ -10,7 +8,10 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 * Create a Google Assistant Action
 * Create a Node.js Express web application
-* Interact with Watson Assistant
+* Interact with Google Assistant and Watson Assistant
+* Use the conversation token to maintain the context
+* Leverage the content catalog for general, customer care, and bot control intents
+* Handle digressions during a conversation
 
 ![](doc/source/images/architecture.png)
 
@@ -30,7 +31,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 
 # Watch the Video
-[![Watson and Google together](https://user-images.githubusercontent.com/9534938/33854699-e2628078-dec2-11e7-9366-e9e698160728.png)](https://www.youtube.com/watch?v=-lIxmYxLzbA "Watson & Google together")
+[![](http://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
 
 # Steps
 
@@ -125,31 +126,32 @@ When the reader has completed this Code Pattern, they will understand how to:
 
    * Log into the device with the same account you used to create your test app
    * Say "Hey Google, talk to \<your app name\>"
+   * Alternatively, test the implicit invocation with "Hey Google, get me some wheels" or "Hey Google, rent a car"
 
-   <!--
-    TODO: 1. Test it on smart phone, etc...
-    TODO: 1. Using the Rental Car Assistant
-    TODO: 1. Using a different conversation
-    TODO: 1. Using another language
-    TODO: 1. You have to finalize the app configuration for production, click [here](https://developers.google.com/actions/sdk/submit)
-   -->
+1. Chat and fill in the "slots" using natural language
+
+1. Try some "digressions" such as:
+
+   * Positive or negative feedback
+   * Ask to talk to the manager
+   * Are you a human?
+   * Do you know any jokes?
+   * Store hours
+   * Store locations
+
+1. If you want to submit the app for approval, follow Google's process documented [here](https://developers.google.com/actions/sdk/submit)
 
 # Sample output
 
-### Illustration of the Web Simulator
+## Testing with the simulator
 
-![Web Simulator](https://user-images.githubusercontent.com/9534938/33787219-9945939c-dc6c-11e7-9fef-8ef464068a58.png)
+![Web Simulator](doc/source/images/simulator.png)
 
-### Illustration with Google Home device - click on the image to watch it
-
-[![Watson & Google together](https://user-images.githubusercontent.com/9534938/33854699-e2628078-dec2-11e7-9366-e9e698160728.png)](https://www.youtube.com/watch?v=-lIxmYxLzbA "Watson & Google together")
-
-### Illustration of the Google Assistant on Mobile (iOS)
-
-![img_d4d247ea81fc-1](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
 
 # Links
-<!-- * [Demo on Youtube](https://www.youtube.com/watch?v=TODO) -->
+* [Demo on Youtube](https://youtu.be/no0R0bSkHXc)
+* [Demo ordering pizza in French](https://youtu.be/-lIxmYxLzbA)
+* [Illustration of the Google Assistant on Mobile (iOS)](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
 * [Create an Alexa skill with Watson Assistant](https://developer.ibm.com/code/patterns/create-an-alexa-skill-with-serverless-and-a-conversation/)
 * [Watson Node.js SDK](https://github.com/watson-developer-cloud/node-sdk)
 
