@@ -96,12 +96,6 @@ When the reader has completed this Code Pattern, they will understand how to:
    * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits.
      > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.mybluemix.net/ 
 
-   <!-- TODO: Not needed(?), but should add implicit queryPatterns
-   * queryPatterns
-   * name
-   * description
-   -->
-
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
 
