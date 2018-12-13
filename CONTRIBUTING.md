@@ -1,15 +1,16 @@
-# Issues
+# Contributing
 
-If you encounter an issue with this  app, you are welcome to submit a bug report. Before that, please search for similar issues. It's possible somebody has encountered this issue already.
+This is an open source project, and we appreciate your help!
 
+We use the GitHub issue tracker to discuss new features and non-trivial bugs.
 
-# Pull Requests
+In addition to the issue tracker, [#journeys on
+Slack](https://dwopen.slack.com) is the best way to get into contact with the
+project's maintainers.
 
-If you want to contribute to the repository, here's a quick guide:
+To contribute code, documentation, or tests, please submit a pull request to
+the GitHub repository. Generally, we expect two maintainers to review your pull
+request before it is approved for merging. For more details, see the
+[MAINTAINERS](MAINTAINERS.md) page.
 
-1. Fork the repo
-1. Develop your code changes
-1. Ensure `eslint` is happy: `npm run lint`
-1. Ensure the tests pass: `npm test`
-1. Commit your changes
-1. Push to your fork and submit a pull request
+Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
