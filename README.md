@@ -13,9 +13,10 @@ When the reader has completed this Code Pattern, they will understand how to:
 * Leverage the content catalog for general, customer care, and bot control intents
 * Handle digressions during a conversation
 
-![](doc/source/images/architecture.png)
+![architecture](doc/source/images/architecture.png)
 
 ## Flow
+
 1. User talks or types to Google Assistant.
 2. Google Assistant posts text to an HTTPS endpoint.
 3. Node.js server calls Watson Assistant to get the response.
@@ -23,15 +24,17 @@ When the reader has completed this Code Pattern, they will understand how to:
 5. Google Assistant replies to the user.
 
 ## Included components
+
 * [Google Home](https://support.google.com/googlehome): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
-* [Watson Assistant](https://www.ibm.com/watson/developercloud/conversation.html): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
+* [Watson Assistant](https://www.ibm.com/cloud/watson-assistant/): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
 
 ## Featured technologies
+
 * [Node.js](https://nodejs.org/): An open-source JavaScript run-time environment for executing server-side JavaScript code.
 
-
 # Watch the Video
-[![](http://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
+
+[![video](http://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
 
 # Steps
 
@@ -42,9 +45,10 @@ When the reader has completed this Code Pattern, they will understand how to:
 1. [Talk to it!](#talk-to-it)
 
 ## Deploy to IBM Cloud
+
 [![Deploy to IBM Cloud](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM/watson-google-assistant.git)
 
-1. Press the above `Deploy to IBM Cloud` button and then click on `Deploy`.
+1. Press the above `Deploy to IBM Cloud` button, click `Create+` to create an *IBM Cloud API Key* and then click on `Deploy`.
 
 2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed.
 
@@ -77,7 +81,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
    Clone the `watson-google-assistant` repo locally. In a terminal, run:
 
-   ```
+   ```bash
    git clone https://github.com/IBM/watson-google-assistant
    ```
 
@@ -85,7 +89,7 @@ When the reader has completed this Code Pattern, they will understand how to:
    * Download the `gactions` CLI from [here](https://developers.google.com/actions/tools/gactions-cli).
    * `chmod` the `gactions` file to make it executable.
    * Copy the `gactions` file into your local repo's `actions` directory.
-     ```
+     ```bash
      # For example, depending on your download and repo directories...
 
      chmod +x ~/Downloads/gactions
@@ -93,15 +97,15 @@ When the reader has completed this Code Pattern, they will understand how to:
      ```
 
 1. Edit the `actions/action.json` file in your local repo.
-   * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits.
-     > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.mybluemix.net/ 
+   * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits and region.
+     > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.us-east.mybluemix.net/
 
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
 
    * Run the `gactions` command to update your action and prepare it for testing. Use the project ID you saved earlier.
 
-     ```
+     ```bash
      cd ~/watson-google-assistant/actions/
      ./gactions update --action_package action.json --project <YOUR_PROJECT_ID>
      ./gactions test --action_package action.json --project <YOUR_PROJECT_ID>
@@ -141,21 +145,22 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ![Web Simulator](doc/source/images/simulator.png)
 
-
 # Links
+
 * [Demo on Youtube](https://youtu.be/no0R0bSkHXc)
 * [Demo ordering pizza in French](https://youtu.be/-lIxmYxLzbA)
 * [Illustration of the Google Assistant on Mobile (iOS)](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
-* [Create an Alexa skill with Watson Assistant](https://developer.ibm.com/code/patterns/create-an-alexa-skill-with-serverless-and-a-conversation/)
+* [Create an Alexa skill with Watson Assistant](https://developer.ibm.com/patterns/create-an-alexa-skill-with-serverless-and-a-conversation/)
 * [Watson Node.js SDK](https://github.com/watson-developer-cloud/node-sdk)
 
 # Learn more
 
-* **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other [AI Code Patterns](https://developer.ibm.com/code/technologies/artificial-intelligence/).
+* **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other [AI Code Patterns](https://developer.ibm.com/technologies/artificial-intelligence/).
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
 * **With Watson**: Want to take your Watson app to the next level? Looking to utilize Watson Brand assets? [Join the With Watson program](https://www.ibm.com/watson/with-watson/) to leverage exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution.
 
 # License
-This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
-[Apache Software License (ASL) FAQ](http://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
+This code pattern is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+
+[Apache License FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
