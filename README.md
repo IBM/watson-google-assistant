@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.org/IBM/watson-google-assistant)
+[![Build Status](https://api.travis-ci.org/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.org/IBM/watson-google-assistant)
 
 # Create an Action for Google Assistant using Watson Assistant
 
@@ -34,7 +34,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Watch the Video
 
-[![video](http://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
+[![video](https://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
 
 # Steps
 
@@ -46,7 +46,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Deploy to IBM Cloud
 
-[![Deploy to IBM Cloud](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM/watson-google-assistant.git)
+[![Deploy to IBM Cloud](https://cloud.ibm.com/devops/setup/deploy/button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https://github.com/IBM/watson-google-assistant.git)
 
 1. Press the above `Deploy to IBM Cloud` button, click `Create+` to create an *IBM Cloud API Key* and then click on `Deploy`.
 
