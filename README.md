@@ -43,30 +43,30 @@ When the reader has completed this code pattern, they will understand how to:
 
 2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed.
 
-3. To see the app and service created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. The following service is created and easily identified by the `wga-` prefix:
-    * wga-assistant
+3. To see the app and service created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. A Watson Assistant service is created and connected to the app. The `rent-a-car` skill is automatically imported.
 
 ## Setup Google Actions
 
 1. Go to [Actions on Google Developer Console](https://console.actions.google.com)
 
 1. Create your project
-   * Click on `+ Add/import project`
+   * Click on `New project`
    * Enter a project name
    * Choose the default language for your Actions
    * Select your country or region
-   * Click on `CREATE PROJECT`
-   * Click on `SKIP` to choose a category later
-
-1. Obtain your project ID
-   * Next to the `Overview` menu item, click on the gear icon and then `Project settings`.
-   * Save the `Project ID` to use later.
+   * Click on `Create project`
+   * Click on the `Actions SDK` card
+   * Click `OK`
 
 1. Set the invocation name
 
-   * Use the left sidebar menu to select `SETUP` > `Invocation`.
+   * Under `Quick setup`, click `Decide how your Action is invoked`.
    * Enter a display name. Users will say or type this name to explicitly invoke your action.
-   * Hit `SAVE`.
+   * Hit `Save`.
+
+1. Obtain your project ID
+   * Click on the vertical 3 dots next to your account avatar and go to `Project settings`.
+   * Save the `Project ID` to use later.
 
 1. Clone the repo
 
@@ -89,7 +89,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 1. Edit the `actions/action.json` file in your local repo.
    * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits and region.
-     > Note: URL needs `https://` prefix e.g. `https://watson-google-assistant-20180707012345678.us-east.mybluemix.net/`
+     > Note: URL needs `https://` prefix e.g. `https://watson-google-assistant-20190707012345678.us-east.mybluemix.net/`
 
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
@@ -107,7 +107,7 @@ When the reader has completed this code pattern, they will understand how to:
 1. Test it in the simulator
 
    * Go back to your Actions on Google Developer Console
-   * Use the left sidebar menu to select `TEST` > `Simulator` and start testing
+   * Use the `Test` tab and start testing
    * Type in the `Input` box or click on the microphone icon to use voice input
    * Say "Talk to my test app" or "Talk to \<your app name\>" to initiate the conversation
 
