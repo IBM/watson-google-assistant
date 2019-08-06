@@ -16,7 +16,7 @@
 
 'use strict';
 
-const AssistantV1 = require('watson-developer-cloud/assistant/v1');
+const AssistantV1 = require('ibm-watson/assistant/v1');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
@@ -118,7 +118,7 @@ function assistantMessage(request, workspaceId) {
       function(err, watsonResponse) {
         if (err) {
           console.error(err);
-          reject('Error talking to Watson Assistant.');
+          reject(Error('Error talking to Watson Assistant.'));
         } else {
           console.log(watsonResponse);
           context = watsonResponse.context; // Update global context

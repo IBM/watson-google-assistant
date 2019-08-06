@@ -1,10 +1,10 @@
-[![Build Status](https://api.travis-ci.org/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.org/IBM/watson-google-assistant)
+[![Build Status](https://travis-ci.com/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.com/IBM/watson-google-assistant)
 
 # Create an Action for Google Assistant using Watson Assistant
 
-This Code Pattern includes a Watson Assistant workspace to demonstrate an implementation of a retail agent that can ask for reservation schedules and specifics. To demonstrate how to test it with Google Assistant devices, we will setup a Google Action that calls out to our Node.js server which interacts with Watson Assistant.
+This code pattern includes a Watson Assistant workspace to demonstrate an implementation of a retail agent that can ask for reservation schedules and specifics. To demonstrate how to test it with Google Assistant devices, we will setup a Google Action that calls out to our Node.js server which interacts with Watson Assistant.
 
-When the reader has completed this Code Pattern, they will understand how to:
+When the reader has completed this code pattern, they will understand how to:
 
 * Create a Google Assistant Action
 * Create a Node.js Express web application
@@ -23,16 +23,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 4. The response is returned to Google Assistant.
 5. Google Assistant replies to the user.
 
-## Included components
-
-* [Google Home](https://support.google.com/googlehome): Powered by the Google Assistant, with [Google Home](https://support.google.com/googlehome) you have command of your music, your home, and your curiosity. Start by saying, for example “Ok Google" or "Hey Google” in English.
-* [Watson Assistant](https://www.ibm.com/cloud/watson-assistant/): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
-
-## Featured technologies
-
-* [Node.js](https://nodejs.org/): An open-source JavaScript run-time environment for executing server-side JavaScript code.
-
-# Watch the Video
+## Watch the Video
 
 [![video](https://img.youtube.com/vi/no0R0bSkHXc/0.jpg)](https://youtu.be/no0R0bSkHXc)
 
@@ -52,7 +43,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed.
 
-3. To see the app and service created and configured for this Code Pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. The following service is created and easily identified by the `wga-` prefix:
+3. To see the app and service created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. The following service is created and easily identified by the `wga-` prefix:
     * wga-assistant
 
 ## Setup Google Actions
@@ -98,7 +89,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 1. Edit the `actions/action.json` file in your local repo.
    * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits and region.
-     > Note: URL needs `https://` prefix e.g. https://watson-google-assistant-20180707012345678.us-east.mybluemix.net/
+     > Note: URL needs `https://` prefix e.g. `https://watson-google-assistant-20180707012345678.us-east.mybluemix.net/`
 
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
@@ -139,27 +130,13 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 1. If you want to submit the app for approval, follow Google's process documented [here](https://developers.google.com/actions/sdk/submit)
 
-# Sample output
+## Sample output
 
-## Testing with the simulator
+### Testing with the simulator
 
 ![Web Simulator](doc/source/images/simulator.png)
 
-# Links
-
-* [Demo on Youtube](https://youtu.be/no0R0bSkHXc)
-* [Demo ordering pizza in French](https://youtu.be/-lIxmYxLzbA)
-* [Illustration of the Google Assistant on Mobile (iOS)](https://user-images.githubusercontent.com/9534938/33787305-eea71f7c-dc6c-11e7-8710-1636e5a91b2f.jpeg)
-* [Create an Alexa skill with Watson Assistant](https://developer.ibm.com/patterns/create-an-alexa-skill-with-serverless-and-a-conversation/)
-* [Watson Node.js SDK](https://github.com/watson-developer-cloud/node-sdk)
-
-# Learn more
-
-* **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other [AI Code Patterns](https://developer.ibm.com/technologies/artificial-intelligence/).
-* **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **With Watson**: Want to take your Watson app to the next level? Looking to utilize Watson Brand assets? [Join the With Watson program](https://www.ibm.com/watson/with-watson/) to leverage exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution.
-
-# License
+## License
 
 This code pattern is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
