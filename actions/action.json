@@ -21,7 +21,7 @@
   "conversations": {
     "Watson": {
       "name": "Watson",
-      "url": "https://watson-google-assistant-20181213012345678.us-east.mybluemix.net/",
+      "url": "https://watson-google-assistant-20190806012345678.us-east.mybluemix.net/",
       "fulfillmentApiVersion": 2,
       "in_dialog_intents": [
         {
