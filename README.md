@@ -29,21 +29,19 @@ When the reader has completed this code pattern, they will understand how to:
 
 # Steps
 
-1. [Deploy to IBM Cloud](#deploy-to-ibm-cloud)
+1. [Deploy the server](#deploy-the-server)
 
 1. [Setup Google Actions](#setup-google-actions)
 
 1. [Talk to it!](#talk-to-it)
 
-## Deploy to IBM Cloud
+## Deploy the server
 
-[![Deploy to IBM Cloud](https://cloud.ibm.com/devops/setup/deploy/button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https://github.com/IBM/watson-google-assistant.git)
+Click on one of the options below for instructions on deploying the Node.js server.
 
-1. Press the above `Deploy to IBM Cloud` button, click `Create+` to create an *IBM Cloud API Key* and then click on `Deploy`.
-
-2. In Toolchains, click on Delivery Pipeline to watch while the app is deployed.
-
-3. To see the app and service created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `watson-google-assistant` with a unique suffix. A Watson Assistant service is created and connected to the app. The `rent-a-car` skill is automatically imported.
+| OpenShift | Cloud Foundry |
+| :-: | :-: |
+| [![openshift](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/openshift.png)](doc/source/openshift.md) | [![public](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/cf.png)](doc/source/cf.md) |
 
 ## Setup Google Actions
 
