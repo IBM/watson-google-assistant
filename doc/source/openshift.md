@@ -8,21 +8,18 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 
 ## Steps
 
-1. [Create your Watson Assistant service](#3-create-your-watson-assistant-service)
+1. [Create your Watson Assistant service](#1-create-your-watson-assistant-service)
 1. [Create an OpenShift project](#2-create-an-openshift-project)
-1. [Create the config map](#5-create-the-config-map)
-1. [Run the application](#6-run-the-application)
+1. [Create the config map](#3-create-the-config-map)
+1. [Run the application](#4-run-the-application)
 
-## 3. Create your Watson Assistant service
+## 1. Create your Watson Assistant service
 
-[Click here](https://cloud.ibm.com/catalog/services/watson-assistant) to go the Watson Assistant create resource page.
-
-* Select the `Plus trial` plan.
-* Edit the `Service name` so that you will recognize it.
-* Review the other settings.
+* [Click here](https://cloud.ibm.com/catalog/services/watson-assistant) to go the Watson Assistant create resource page.
+* Review the settings. The defaults and a **Free** plan should work.
 * Click `Create`.
-* Copy/paste the `API Key` and `URL` or keep the browser tab open. You'll need these later.
-![credentials](images/credentials.png)
+* Copy/paste the `API Key` and `URL` or keep the browser tab open. You'll need these later.  
+  ![credentials](images/credentials.png)
 
 ## 2. Create an OpenShift project
 
@@ -44,7 +41,7 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 
   ![Add github repo](https://raw.githubusercontent.com/IBM/pattern-utils/master/openshift/openshift-add-github-repo.png)
 
-## 5. Create the config map
+## 3. Create the config map
 
 * Click on the `Resources` tab and choose `Config Maps` and then click the `Create Config Map` button.
   * Provide a `Name` for the config map.
@@ -59,7 +56,7 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 
 * Go to the `Applications` tab, choose `Deployments` to view the status of your application.
 
-## 6. Run the application
+## 4. Run the application
 
 * From the OpenShift or OKD UI, under `Applications` -> `Routes` you will see your app. Click on the `Hostname`. You should see the message: "Watson for Google Assistant app is running."
 * Save this URL.
