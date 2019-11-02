@@ -8,6 +8,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 * Create a Google Assistant Action
 * Create a Node.js Express web application
+* Deploy the Node.js app with Red Hat OpenShift or Cloud Foundry on IBM Cloud
 * Interact with Google Assistant and Watson Assistant
 * Use the conversation token to maintain the context
 * Leverage the content catalog for general, customer care, and bot control intents
@@ -39,9 +40,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 Click on one of the options below for instructions on deploying the Node.js server.
 
-| OpenShift | Cloud Foundry |
-| :-: | :-: |
-| [![openshift](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/openshift.png)](doc/source/openshift.md) | [![public](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/cf.png)](doc/source/cf.md) |
+[![openshift](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/openshift.png)](doc/source/openshift.md) [![public](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/cf.png)](doc/source/cf.md)
 
 ## Setup Google Actions
 
@@ -85,9 +84,13 @@ Click on one of the options below for instructions on deploying the Node.js serv
      cp ~/Downloads/gactions ~/watson-google-assistant/actions/
      ```
 
-1. Edit the `actions/action.json` file in your local repo.
-   * Edit the `url` using your deployed IBM Cloud app URL. Typically, you would just modify the timestamp digits and region.
-     > Note: URL needs `https://` prefix e.g. `https://watson-google-assistant-20190707012345678.us-east.mybluemix.net/`
+1. Edit `url` in the `actions/action.json` file in your local repo.
+
+   * If you deployed with OpenShift, use the URL you saved at the end of the OpenShift deployment (from a TLS secure `Hostname`).
+
+   * If you deployed with Cloud Foundry, use your app URL.
+
+   > Note: The URL must have an `https://` prefix!
 
 1. Create the action using the CLI
    > Note: If/when it prompts you to enter an authorization code, browse to the provided URL to login and authorize the CLI to use your account and copy/paste the auth code at the prompt.
