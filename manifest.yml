@@ -5,7 +5,8 @@ declared-services:
     plan: free
 applications:
 - path: .
-  buildpack: sdk-for-nodejs
+  buildpacks:
+    - sdk-for-nodejs
   memory: 256M
   instances: 1
   name: watson-google-assistant
