@@ -11,7 +11,7 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 1. [Create your Watson Assistant service](#1-create-your-watson-assistant-service)
 1. [Create an OpenShift project](#2-create-an-openshift-project)
 1. [Create the config map](#3-create-the-config-map)
-1. [Run the application](#4-run-the-application)
+1. [Get a secure endpoint](#4-get-a-secure-endpoint)
 
 ## 1. Create your Watson Assistant service
 
@@ -56,9 +56,15 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 
 * Go to the `Applications` tab, choose `Deployments` to view the status of your application.
 
-## 4. Run the application
+## 4. Get a secure endpoint
 
-* From the OpenShift or OKD UI, under `Applications` -> `Routes` you will see your app. Click on the `Hostname`. You should see the message: "Watson for Google Assistant app is running."
-* Save this URL.
+* From the OpenShift or OKD UI, under `Applications` ▷ `Routes` you will see your app.
+  * Click on the application `Name`.
+  * Under `TLS Settings`, click on `Edit`.
+  * Under `Security`, check the box for `Secure route`.
+  * Hit `Save`.
+* Go back to `Applications` ▷ `Routes`.
+  * Click your app's `Hostname`. You should see the message: "Watson for Google Assistant app is running."
+  * Save this URL to use later in your actions/action.json file. **It must start with https**.
 
 [![return](https://raw.githubusercontent.com/IBM/pattern-utils/master/deploy-buttons/return.png)](https://github.com/IBM/watson-google-assistant#setup-google-actions)

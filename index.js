@@ -26,8 +26,6 @@ const secret = 'notsecret';
 const app = express();
 const port = process.env.PORT || 8080;
 
-require('dotenv').config();
-
 const DEFAULT_NAME = 'rent-a-car';
 const WatsonAssistantSetup = require('./lib/watson-assistant-setup');
 let setupError = '';
@@ -45,7 +43,7 @@ function handleSetupError(reason) {
 
 // Connect a client to Watson Assistant
 // The SDK gets credentials from the environment.
-const assistant = new AssistantV1({ version: '2018-02-16' });
+const assistant = new AssistantV1({ version: '2019-11-01' });
 console.log('Connected to Watson Assistant');
 let workspaceID; // workspaceID will be set when the workspace is created or validated.
 const assistantSetup = new WatsonAssistantSetup(assistant);
