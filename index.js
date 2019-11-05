@@ -16,7 +16,6 @@
 
 'use strict';
 
-const sdkCore = require('ibm-cloud-sdk-core');
 const AssistantV1 = require('ibm-watson/assistant/v1');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -45,7 +44,6 @@ function handleSetupError(reason) {
 // Connect a client to Watson Assistant
 // The SDK gets credentials from the environment.
 const assistant = new AssistantV1({
-  authenticator: sdkCore.getAuthenticatorFromEnvironment('assistant'), // workaround
   version: '2019-11-01'
 });
 console.log('Connected to Watson Assistant');
