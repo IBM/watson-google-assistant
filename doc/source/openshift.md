@@ -45,7 +45,7 @@ You will need a running OpenShift cluster, or OKD cluster. You can provision [Op
 
 * Click on the `Resources` tab and choose `Config Maps` and then click the `Create Config Map` button.
   * Provide a `Name` for the config map.
-  * Add a key named `ASSISTANT_IAM_APIKEY` and paste in the API Key from step 1 under `Enter a value...`.
+  * Add a key named `ASSISTANT_APIKEY` and paste in the API Key from step 1 under `Enter a value...`.
   * Click `Add Item` and add a key named `ASSISTANT_URL` and paste in the URL from step 1 under `Enter a value...`..
   * Click `Add Item` and add a key named `PORT`, enter 8080 under `Enter a value...`.
   * Hit the `Create` button.
