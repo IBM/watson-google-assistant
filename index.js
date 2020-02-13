@@ -30,10 +30,11 @@ const DEFAULT_NAME = 'rent-a-car';
 const WatsonAssistantSetup = require('./lib/watson-assistant-setup');
 let setupError = '';
 
-/**
+/*
  * Handle setup errors by logging and appending to the global error text.
  * @param {String} reason - The error message for the setup error.
  */
+ 
 function handleSetupError(reason) {
   setupError += ' ' + reason;
   console.error('The app failed to initialize properly. Setup and restart needed.' + setupError);
@@ -131,13 +132,19 @@ function assistantMessage(request, workspaceId) {
 
 /**
  * Format the response for Google Assistant.
- *
+ * @param {*} request - incoming request
  * @param {*} response - Response from Watson Assistant
  */
-function formatResponse(response) {
+function formatResponse(response,request) {
   // store context in conversationToken
   const conversationToken = jwt.sign(response.context, secret);
 
+  //intent for turning mic off
+  //const intent = request.inputs[0].intent;
+if(response==="Bye")
+{
+  request.inputs[0].intent='actions.intent.CANCEL';
+}
   // Combine the output messages into one message.
   const output = response.output.text.join(' ');
 
@@ -174,6 +181,7 @@ function formatResponse(response) {
     const s = output.substring(0, 59); // Has to be < 60 chars.  :(
     resp.finalResponse = { speechResponse: { textToSpeech: s } };
   }
+  
 
   console.log('Response:');
   console.log(resp);
