@@ -137,6 +137,9 @@ Click on one of the options below for instructions on deploying the Node.js serv
 
 ![Web Simulator](doc/source/images/simulator.png)
 
+## Troubleshooting
+If you get an error on your Cloud Foundry deployment, please see this [issue](https://github.com/IBM/watson-google-assistant/issues/36). You will need to add environmental variables to your CF app, and then once you do that, the app will restart automatically and it should work as intended.
+
 ## License
 
 This code pattern is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
