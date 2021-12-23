@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/IBM/watson-google-assistant.svg?branch=master)](https://travis-ci.com/IBM/watson-google-assistant)
-
 # Create an Action for Google Assistant using Watson Assistant
 
 This code pattern includes a Watson Assistant workspace to demonstrate an implementation of a retail agent that can ask for reservation schedules and specifics. To demonstrate how to test it with Google Assistant devices, we will setup a Google Action that calls out to our Node.js server which interacts with Watson Assistant.
